@@ -8,6 +8,7 @@ using GameTracker.Services;
 
 namespace GameTracker.Controllers
 {
+[Authorize]
     public class ComputerGamesController : Controller
     {
         private readonly IComputerGameService _computerGameService;
