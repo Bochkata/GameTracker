@@ -9,6 +9,7 @@ using System.Net;
 
 namespace GameTracker.Controllers
 {
+    [Authorize]
     public class BoardGamesController : Controller
     {
         private readonly IBoardGameService _boardGameService;
