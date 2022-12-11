@@ -1,4 +1,4 @@
-﻿using GameTracker.Contracts;
+using GameTracker.Contracts;
 using GameTracker.Models.Games.BoardGameModels;
 using Microsoft.AspNetCore.Mvc;
 using System.Security.Claims;
@@ -6,6 +6,8 @@ using static GameTracker.Data.DataConstants.ControllerConstants;
 using static GameTracker.Data.DataConstants.BoardGameConstants;
 using Microsoft.Extensions.FileSystemGlobbing;
 using System.Net;
+using Microsoft.AspNetCore.Authorization;
+using static GameTracker.Data.DataConstants;
 
 namespace GameTracker.Controllers
 {
@@ -26,6 +28,7 @@ namespace GameTracker.Controllers
         }
 
         [HttpGet]
+        [Authorize(Roles = RoleContants.Admin)]
         public async Task<IActionResult> AddBoardGame()
         {
             BoardGameFormModel boardGameFormModel = new BoardGameFormModel()
@@ -36,6 +39,7 @@ namespace GameTracker.Controllers
         }
 
         [HttpPost]
+        [Authorize(Roles = RoleContants.Admin)]
         public async Task<IActionResult> AddBoardGame(BoardGameFormModel boardGameFormModel)
         {
             if (!ModelState.IsValid)
