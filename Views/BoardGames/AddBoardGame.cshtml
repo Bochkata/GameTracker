@@ -1,0 +1,54 @@
+﻿@using GameTracker.Models.Games.BoardGameModels
+@model BoardGameFormModel
+
+@{
+    ViewBag.Title = "Add Board Game";
+}
+
+<h2 class="text-center">@ViewBag.Title</h2>
+<hr />
+
+<div class="row">
+    <div class="col-sm-12 offset-lg-2 col-lg-8 offset-xl-3 col-xl-6">
+        <form method="post">
+            <div class="mb-3">
+                <label asp-for="@Model.Name" class="form-label">Name</label>
+                <input asp-for="@Model.Name" class="form-control" aria-required="true" />
+                <span asp-validation-for="Name" class="text-danger"></span>
+            </div>
+            <div class="mb-3">
+                <label asp-for="@Model.Creator" class="form-label">Creator</label>
+                <input asp-for="@Model.Creator" class="form-control" aria-required="true" />
+                <span asp-validation-for="Creator" class="text-danger"></span>
+            </div>
+            <div class="mb-3">
+                <label asp-for="@Model.ImageUrl" class="form-label">Image URL</label>
+                <input asp-for="@Model.ImageUrl" class="form-control" aria-required="true" />
+                <span asp-validation-for="ImageUrl" class="text-danger"></span>
+            </div>
+            <div class="mb-3">
+                <label asp-for="@Model.Rating" class="form-label">Rating</label>
+                <input asp-for="@Model.Rating" class="form-control" value="" />
+                <span asp-validation-for="Rating" class="text-danger"></span>
+            </div>
+            <div class="mb-3">
+                <label asp-for="@Model.BoardGameTypeId" class="form-label">Board Game Type</label>
+                <select asp-for="@Model.BoardGameTypeId" class="form-control">
+                    @foreach (var boardGameType in Model.BoardGameTypes)
+                    {
+                        <option value="@boardGameType.Id">@boardGameType.Name</option>
+                    }
+                </select>
+                <span asp-validation-for="BoardGameTypeId" class="text-danger"></span>
+            </div>
+            <div class="mb-3">
+                <input class="btn btn-primary" type="submit" value="Add Board Game" />
+            </div>
+        </form>
+    </div>
+</div>
+
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

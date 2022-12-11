@@ -1,0 +1,54 @@
+﻿@using GameTracker.Models.Games.BookGameModels
+@model BookGameFormModel
+
+@{
+    ViewBag.Title = "Add Book Game";
+}
+
+<h2 class="text-center">@ViewBag.Title</h2>
+<hr />
+
+<div class="row">
+    <div class="col-sm-12 offset-lg-2 col-lg-8 offset-xl-3 col-xl-6">
+        <form method="post">
+            <div class="mb-3">
+                <label asp-for="@Model.Title" class="form-label">Title</label>
+                <input asp-for="@Model.Title" class="form-control" aria-required="true" />
+                <span asp-validation-for="Title" class="text-danger"></span>
+            </div>
+            <div class="mb-3">
+                <label asp-for="@Model.Writer" class="form-label">Writer</label>
+                <input asp-for="@Model.Writer" class="form-control" aria-required="true" />
+                <span asp-validation-for="Writer" class="text-danger"></span>
+            </div>
+            <div class="mb-3">
+                <label asp-for="@Model.ImageUrl" class="form-label">Image URL</label>
+                <input asp-for="@Model.ImageUrl" class="form-control" aria-required="true" />
+                <span asp-validation-for="ImageUrl" class="text-danger"></span>
+            </div>
+            <div class="mb-3">
+                <label asp-for="@Model.Rating" class="form-label">Rating</label>
+                <input asp-for="@Model.Rating" class="form-control" value="" />
+                <span asp-validation-for="Rating" class="text-danger"></span>
+            </div>
+            <div class="mb-3">
+                <label asp-for="@Model.BookGameTypeId" class="form-label">Book Game Type</label>
+                <select asp-for="@Model.BookGameTypeId" class="form-control">
+                    @foreach (var bookGameType in Model.BookGameTypes)
+                    {
+                        <option value="@bookGameType.Id">@bookGameType.Name</option>
+                    }
+                </select>
+                <span asp-validation-for="BookGameTypeId" class="text-danger"></span>
+            </div>
+            <div class="mb-3">
+                <input class="btn btn-primary" type="submit" value="Add Book Game" />
+            </div>
+        </form>
+    </div>
+</div>
+
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

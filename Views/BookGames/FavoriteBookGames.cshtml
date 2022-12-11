@@ -1,0 +1,31 @@
+﻿@using GameTracker.Models.Games.BookGameModels
+@model BookGamesAllViewModel
+
+@{
+    ViewBag.Title = "Favorite Book Games";
+}
+
+<h2 class="text-center">@ViewBag.Title</h2>
+<hr />
+
+
+<div class="text-center row">
+    @foreach (var bookGame in Model.BookGames)
+    {
+        <div class="card col-4" style="width: 20rem; ">
+            <img class="card-img-top" style="width: 18rem;"
+             src="@bookGame.ImageUrl" alt="Book Game Image">
+            <div class="card-body">
+
+                <h5 class="card-title mt-1">@bookGame.Title</h5>
+                <p class="mb-0">Director: @bookGame.Writer</p>
+                <p class="mb-0">Rating: @bookGame.Rating</p>
+                <p>BookGameType: @bookGame.BookGameType</p>
+            </div>
+
+            <form class="input-group-sm" asp-route-bookGameId="@bookGame.Id" asp-controller="BookGames" asp-action="RemoveFromCollection" method="post">
+                <input class="fs-6 btn btn-success mb-3 p-2" type="submit" value="Remove from favorite" />
+            </form>
+        </div>
+    }
+</div>

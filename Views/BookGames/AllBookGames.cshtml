@@ -1,0 +1,37 @@
+﻿@using GameTracker.Data
+@using GameTracker.Models.Games.BookGameModels
+@model BookGamesAllViewModel
+
+
+@{
+    ViewBag.Title = "ALL";
+}
+
+<div class="text-center row">
+    @foreach (var BookGame in Model.BookGames)
+    {
+        <div class="card col-4" style="width: 20rem;">
+            <img class="card-img-top" style="width: 18rem;"
+             src="@BookGame.ImageUrl" alt="Book Game Image">
+            <div class="card-body">
+
+                <h5 class="card-title mt-1">@BookGame.Title</h5>
+                <p class="mb-0">Director: @BookGame.Writer</p>
+                <p class="mb-0">Rating: @BookGame.Rating</p>
+                <p>BookGameType: @BookGame.BookGameType</p>
+            </div>
+
+            <form class="input-group-sm" asp-route-bookGameId="@BookGame.Id" asp-controller="BookGames" asp-action="AddToCollection" method="post">
+                <input type="submit" value="Add To Favorite" class="fs-6 btn btn-success mb-3 p-2" />
+            </form>
+
+            @if (User.IsInRole(DataConstants.RoleContants.Admin))
+            {
+                <form class="input-group-sm" asp-route-bookGameId="@BookGame.Id" asp-controller="BookGames" asp-action="Delete" method="post">
+                    <input type="submit" value="Delete" class="fs-6 btn btn-danger mb-3 p-2" />
+                </form>
+            }
+        </div>
+    }
+</div>
+

@@ -1,0 +1,59 @@
+﻿@using GameTracker.Models.Games.BookGameModels;
+@model BookGamesAllViewModel
+
+
+<div class="row">
+    <div class="col-12">
+        <form method="post">
+            <div class="card">
+                <div class="card-header">
+                    <h3 class="card-title">@ViewData["Title"]</h3>
+                    <div class="card-tools">
+                        <div class="input-group input-group-sm" style="width: 150px;">
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card-body table-responsive p-0">
+                <table class="table table-hover text-nowrap">
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Brand</th>
+                            <th>Model</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var bookGame in Model.BookGames)
+                        {
+                            <tr style="background-color: #14a4c4">
+                                <td>@bookGame.Id</td>
+                                <td>@bookGame.Title</td>
+                                <td>@bookGame.Writer</td>
+                                <td>
+                                    <form asp-area="Admin" asp-action="Delete" asp-controller="Book">
+                                        <input name="id" type="hidden" value="@bookGame.Id" />
+                                        <button type="submit" class="btn btn-block btn-outline-danger btn-xs">Delete</button>
+                                    </form>
+                                </td>
+                            </tr>
+
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </form>
+    </div>
+</div>
+<a asp-area="Admin" asp-action="Add" asp-controller="Book" class="btn btn-block btn-outline-info btn-xs">Add</a>
+
+
+
+
+
+
+
+<script>
+
+</script>

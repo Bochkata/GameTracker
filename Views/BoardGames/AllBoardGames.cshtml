@@ -1,0 +1,34 @@
+﻿@using GameTracker.Data
+@using GameTracker.Models.Games.BoardGameModels
+@model BoardGamesAllViewModel
+
+@{
+    ViewBag.Title = "ALL";
+}
+
+<div class="text-center row">
+    @foreach (var BoardGame in Model.BoardGames)
+    {
+        <div class="card col-4" style="width: 20rem;">
+            <img class="card-img-top" style="width: 18rem;"
+             src="@BoardGame.ImageUrl" alt="Board Game Image">
+            <div class="card-body">
+
+                <h5 class="card-title mt-1">@BoardGame.Name</h5>
+                <p class="mb-0">Director: @BoardGame.Creator</p>
+                <p class="mb-0">Rating: @BoardGame.Rating</p>
+                <p>BoardGameType: @BoardGame.BoardGameType</p>
+            </div>
+
+            <form class="input-group-sm" asp-route-boardGameId="@BoardGame.Id" asp-controller="BoardGames" asp-action="AddToCollection" method="post">
+                <input type="submit" value="Add To Favorite" class="fs-6 btn btn-success mb-3 p-2" />
+            </form>
+            @if (User.IsInRole(DataConstants.RoleContants.Admin))
+            {
+                <form class="input-group-sm" asp-route-boardGameId="@BoardGame.Id" asp-controller="BoardGames" asp-action="Delete" method="post">
+                    <input type="submit" id="deleteButton" value="Delete" class="fs-6 btn btn-danger mb-3 p-2" />
+                </form>
+            }
+        </div>
+    }
+</div>

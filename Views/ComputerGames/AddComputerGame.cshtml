@@ -1,0 +1,54 @@
+﻿@using GameTracker.Models.Games.ComputerGameModels
+@model ComputerGameFormModel
+
+@{
+    ViewBag.Title = "Add Computer Game";
+}
+
+<h2 class="text-center">@ViewBag.Title</h2>
+<hr />
+
+<div class="row">
+    <div class="col-sm-12 offset-lg-2 col-lg-8 offset-xl-3 col-xl-6">
+        <form method="post">
+            <div class="mb-3">
+                <label asp-for="@Model.Name" class="form-label">Name</label>
+                <input asp-for="@Model.Name" class="form-control" aria-required="true" />
+                <span asp-validation-for="Name" class="text-danger"></span>
+            </div>
+            <div class="mb-3">
+                <label asp-for="@Model.Creator" class="form-label">Creator</label>
+                <input asp-for="@Model.Creator" class="form-control" aria-required="true" />
+                <span asp-validation-for="Creator" class="text-danger"></span>
+            </div>
+            <div class="mb-3">
+                <label asp-for="@Model.ImageUrl" class="form-label">Image URL</label>
+                <input asp-for="@Model.ImageUrl" class="form-control" aria-required="true" />
+                <span asp-validation-for="ImageUrl" class="text-danger"></span>
+            </div>
+            <div class="mb-3">
+                <label asp-for="@Model.Rating" class="form-label">Rating</label>
+                <input asp-for="@Model.Rating" class="form-control" value="" />
+                <span asp-validation-for="Rating" class="text-danger"></span>
+            </div>
+            <div class="mb-3">
+                <label asp-for="@Model.ComputerGameTypeId" class="form-label">Computer Game Type</label>
+                <select asp-for="@Model.ComputerGameTypeId" class="form-control">
+                    @foreach (var computerGameType in Model.ComputerGameTypes)
+                    {
+                        <option value="@computerGameType.Id">@computerGameType.Name</option>
+                    }
+                </select>
+                <span asp-validation-for="ComputerGameTypeId" class="text-danger"></span>
+            </div>
+            <div class="mb-3">
+                <input class="btn btn-primary" type="submit" value="Add Computer Game" />
+            </div>
+        </form>
+    </div>
+</div>
+
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}
