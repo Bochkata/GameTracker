@@ -1,4 +1,4 @@
-﻿using GameTracker.Contracts;
+using GameTracker.Contracts;
 using GameTracker.Models.Games.BookGameModels;
 using Microsoft.AspNetCore.Mvc;
 using System.Security.Claims;
@@ -6,10 +6,12 @@ using static GameTracker.Data.DataConstants.BookGameConstants;
 using static GameTracker.Data.DataConstants.ControllerConstants;
 using Microsoft.Extensions.FileSystemGlobbing;
 using GameTracker.Services;
+using Microsoft.AspNetCore.Authorization;
+using static GameTracker.Data.DataConstants;
 
 namespace GameTracker.Controllers
 {
-[Authorize]
+    [Authorize]
     public class BookGamesController : Controller
     {
         private readonly IBookGameService _bookGameService;
@@ -24,8 +26,8 @@ namespace GameTracker.Controllers
             BookGamesAllViewModel BookGameAllViewModel = await _bookGameService.GetAllBookGamesAsync();
             return View(BookGameAllViewModel);
         }
-
         [HttpGet]
+        [Authorize(Roles = RoleContants.Admin)]
         public async Task<IActionResult> AddBookGame()
         {
             BookGameFormModel bookGameFormModel = new BookGameFormModel()
@@ -36,6 +38,7 @@ namespace GameTracker.Controllers
         }
 
         [HttpPost]
+        [Authorize(Roles = RoleContants.Admin)]
         public async Task<IActionResult> AddBookGame(BookGameFormModel bookGameFormModel)
         {
             if (!ModelState.IsValid)
@@ -45,7 +48,7 @@ namespace GameTracker.Controllers
             try
             {
                 await _bookGameService.AddBookGameAsync(bookGameFormModel);
-                return RedirectToAction(nameof(AllBookGames));
+                return RedirectToAction(nameof(AllBookGames));//to do
             }
             catch (Exception)
             {
@@ -53,9 +56,8 @@ namespace GameTracker.Controllers
                 return View(bookGameFormModel);
             }
         }
-
-        [HttpPost]
-        public async Task<IActionResult> AddToCollection(int bookGameId)
+            [HttpPost]
+         public async Task<IActionResult> AddToCollection(int bookGameId)
         {
             try
             {
@@ -94,6 +96,7 @@ namespace GameTracker.Controllers
             return RedirectToAction(nameof(FavoriteBookGames));
         }
         [HttpPost]
+        [Authorize(Roles = RoleContants.Admin)]
         public ActionResult Delete(int bookGameId)
         {
             _bookGameService.Delete(bookGameId);
