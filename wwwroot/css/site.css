@@ -1,0 +1,30 @@
+html {
+  font-size: 14px;
+}
+
+@media (min-width: 768px) {
+  html {
+    font-size: 16px;
+  }
+}
+
+html {
+  position: relative;
+  min-height: 100%;
+}
+
+body {
+  margin-bottom: 60px;
+}
+
+.nav-link {
+    display:inline-block;
+} 
+
+.nav-user {
+    display:inline-block;
+    position: relative;
+    margin-top: 9px;
+    float: left;
+}
+    
